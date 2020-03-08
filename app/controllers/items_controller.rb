@@ -27,6 +27,12 @@ class ItemsController < ApplicationController
     redirect_to @item
   end
 
+  def destroy 
+    @item = Item.find(params[:id])          #データの取得
+    @item.destroy                           #削除
+    redirect_to items_path                   #一覧画面に遷移
+  end
+
   private
   def item_params                                  #ストロングパラメーター
     params.require(:item).permit(:name, :price,    #外からは受け付けない、コントローラー内のみ
