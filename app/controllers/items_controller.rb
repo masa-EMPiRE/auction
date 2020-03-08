@@ -13,8 +13,11 @@ class ItemsController < ApplicationController
 
   def create
     @item = Item.new(item_params)  #オブジェクトつくってる
-    @item.save                     #newしてsave
-    redirect_to @item              #showに飛ばして確認させる(一覧の場合は"/items")
+      if @item.save                     #newしてsave
+        redirect_to @item              #showに飛ばして確認させる(一覧の場合は"/items")
+      else
+        render :new        #redirect_toだと全て消えてしまうからrender 
+      end
   end
 
   def edit 
