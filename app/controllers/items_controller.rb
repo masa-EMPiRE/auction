@@ -17,9 +17,19 @@ class ItemsController < ApplicationController
     redirect_to @item              #showに飛ばして確認させる(一覧の場合は"/items")
   end
 
+  def edit 
+    @item = Item.find(params[:id])
+  end
+
+  def update
+    @item = Item.find(params[:id])    #更新される前のデータ
+    @item.update(item_params)         #下の値をアップデート
+    redirect_to @item
+  end
+
   private
-  def item_params
-    params.require(:item).permit(:name, :price, 
+  def item_params                                  #ストロングパラメーター
+    params.require(:item).permit(:name, :price,    #外からは受け付けない、コントローラー内のみ
       :seller, :description, :email, :image_url)
   end
 end
